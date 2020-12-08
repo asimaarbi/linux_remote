@@ -10,8 +10,8 @@ app = Flask(__name__)
 def power_ops(status):
     if status == 'status':
         raw = subprocess.check_output(shlex.split("pacmd list-sinks"))
-        is_muted = raw.find("muted: yes") != -1
-        return str(is_muted)
+        is_muted = raw.find(b"muted: yes") != -1
+        return is_muted
     subprocess.check_call(shlex.split(f"amixer -D pulse sset Master {status}"))
     return status
 
