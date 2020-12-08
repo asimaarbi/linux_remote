@@ -2,6 +2,7 @@ import shlex
 import subprocess
 
 from flask import Flask
+
 app = Flask(__name__)
 
 
@@ -9,17 +10,14 @@ app = Flask(__name__)
 def power_ops(status):
     if status == 'mute':
         stt = subprocess.check_call(shlex.split("amixer -D pulse sset Master mute"))
-        print(stt)
         return 'Muted'
     elif status == 'unmute':
         subprocess.check_call(shlex.split("amixer -D pulse sset Master unmute"))
         return 'Unmuted'
     else:
-        stat = subprocess.check_call(shlex.split("pacmd list-sinks | awk '/muted/ { print $2 }'"))
-        print(type(stat))
-        return status
-
-
+        raw = subprocess.check_output(shlex.split("pacmd list-sinks"))
+        is_muted = raw.find("muted: yes") != -1
+        return is_muted
 
 
 if __name__ == '__main__':
