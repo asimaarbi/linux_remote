@@ -23,7 +23,7 @@ class Discovery:
         desc = {'path': '/~paulsm/'}
         self.info = ServiceInfo(
             "_http._tcp.local.",
-            f"{socket.gethostname()} Site._http._tcp.local.",
+            f"{socket.gethostname()}._http._tcp.local.",
             addresses=[socket.inet_aton(get_ip())],
             port=port,
             properties=desc,

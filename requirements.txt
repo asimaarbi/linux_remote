@@ -1,0 +1,4 @@
+flask
+autobahn
+dbus-python
+zeroconf
